@@ -1,113 +1,236 @@
-import Image from 'next/image'
+import { SettingsTabs } from '@/components/Settings'
+import * as Input from '@/components/Input'
+import * as FileInput from '@/components/Form/FileInput'
+import { Bold, Italic, Link, List, ListOrdered, Mail } from 'lucide-react'
+import { Select } from '@/components/Form/Select'
+import { SelectItem } from '@/components/Form/Select/SelectItem'
+import { TextArea } from '@/components/Form/Textarea'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <h1 className="text-3xl font-medium text-zinc-900">Settings</h1>
+
+      <SettingsTabs />
+
+      <div className="mt-6 flex flex-col">
+        <div className="flex items-center justify-between border-b border-b-zinc-200 pb-5">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-lg font-medium text-zinc-900">
+              Personal info
+            </span>
+            <span className="text-sm text-zinc-500">
+              Update your photo and personal details here.
+            </span>
+          </div>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              className="rounded-lg border border-zinc-300 px-4 py-2.5 text-sm font-semibold text-zinc-700 shadow-sm hover:bg-zinc-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              form="settings"
+              className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-700"
+            >
+              Save
+            </button>
+          </div>
         </div>
+
+        <form
+          id="settings"
+          className="mt-6 flex w-full flex-col gap-5 divide-y divide-zinc-200"
+        >
+          <div className="grid grid-cols-form gap-3">
+            <label
+              className="text-sm font-medium text-zinc-700"
+              htmlFor="firstName"
+            >
+              Name
+            </label>
+            <div className="grid grid-cols-2 gap-6">
+              <Input.Root>
+                <Input.Control id="firstName" defaultValue="Matheus" />
+              </Input.Root>
+
+              <Input.Root>
+                <Input.Control defaultValue="Nascimento" />
+              </Input.Root>
+            </div>
+            <div />
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label
+              className="text-sm font-medium text-zinc-700"
+              htmlFor="emailAddress"
+            >
+              Email address
+            </label>
+            <Input.Root>
+              <Input.Prefix>
+                <Mail className="h-5 w-5 text-zinc-500" />
+              </Input.Prefix>
+              <Input.Control
+                id="emailAddress"
+                defaultValue="mnsergio59@gmail.com"
+              />
+            </Input.Root>
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label
+              className="text-sm font-medium text-zinc-700"
+              htmlFor="photo"
+            >
+              Your photo
+              <span className="block text-sm text-zinc-500">
+                This will be displayed on your profile.
+              </span>
+            </label>
+            <FileInput.Root className="flex items-start gap-5">
+              <FileInput.ImagePreview />
+              <FileInput.Trigger />
+              <FileInput.Control />
+            </FileInput.Root>
+            <div />
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label className="text-sm font-medium text-zinc-700" htmlFor="role">
+              Role
+            </label>
+            <Input.Root>
+              <Input.Control id="role" defaultValue="Product Designer" />
+            </Input.Root>
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label
+              className="text-sm font-medium text-zinc-700"
+              htmlFor="country"
+            >
+              Country
+            </label>
+            <Select placeholder="Select a country...">
+              <SelectItem value="br" text="Brasil" />
+              <SelectItem value="us" text="United State" />
+            </Select>
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label
+              className="text-sm font-medium text-zinc-700"
+              htmlFor="timezone"
+            >
+              Timezone
+            </label>
+            <Select placeholder="Select a timezone...">
+              <SelectItem
+                value="utc-8"
+                text="Pacific Standard Time (PST) UTC-08:00"
+              />
+              <SelectItem
+                value="utc-3"
+                text="América São Paulo Standard Time (PST) UTC-03:00"
+              />
+            </Select>
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label className="text-sm font-medium text-zinc-700" htmlFor="bio">
+              Bio
+              <span className="block text-sm text-zinc-500">
+                Write a short introduction.
+              </span>
+            </label>
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <Select placeholder="" defaultValue="normal">
+                  <SelectItem value="normal" text="Normal text" />
+                  <SelectItem value="bold" text="Bold text" />
+                  <SelectItem value="italic" text="Italic text" />
+                </Select>
+
+                <div className="flex gap-1">
+                  <button
+                    type="button"
+                    className="rounded-lg p-2 hover:bg-zinc-50"
+                  >
+                    <Bold className="h-4 w-4 text-zinc-500" strokeWidth={3} />
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-lg p-2 hover:bg-zinc-50"
+                  >
+                    <Italic className="h-4 w-4 text-zinc-500" strokeWidth={3} />
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-lg p-2 hover:bg-zinc-50"
+                  >
+                    <Link className="h-4 w-4 text-zinc-500" strokeWidth={3} />
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-lg p-2 hover:bg-zinc-50"
+                  >
+                    <List className="h-4 w-4 text-zinc-500" strokeWidth={3} />
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-lg p-2 hover:bg-zinc-50"
+                  >
+                    <ListOrdered
+                      className="h-4 w-4 text-zinc-500"
+                      strokeWidth={3}
+                    />
+                  </button>
+                </div>
+              </div>
+              <TextArea
+                defaultValue="I'm a Product Designer based in Melbourne, Australia. I specialise in UX/UI design, brand strategy, and Webflow development."
+                id="bio"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-form gap-3 pt-5">
+            <label
+              className="text-sm font-medium text-zinc-700"
+              htmlFor="projects"
+            >
+              Portfolio projects
+              <span className="block text-sm text-zinc-500">
+                Share a few snippets of your work.
+              </span>
+            </label>
+            <FileInput.Root>
+              <FileInput.Trigger />
+              <FileInput.FileList />
+              <FileInput.Control multiple />
+            </FileInput.Root>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-5">
+            <button
+              type="button"
+              className="rounded-lg border border-zinc-300 px-4 py-2.5 text-sm font-semibold text-zinc-700 shadow-sm hover:bg-zinc-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-700"
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   )
 }
